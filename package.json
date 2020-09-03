@@ -1,0 +1,26 @@
+{
+  "name": "gulp-tailwind-preset",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "dev": "gulp dev",
+    "prod": "cross-env NODE_ENV=production gulp"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cross-env": "^7.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "browser-sync": "^2.26.12",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-file-include": "^2.2.2",
+    "gulp-postcss": "^8.0.0",
+    "postcss-import": "^12.0.1",
+    "postcss-nesting": "^7.0.1",
+    "tailwindcss": "^1.7.6"
+  }
+}

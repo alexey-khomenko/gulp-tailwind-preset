@@ -1,0 +1,8 @@
+body {
+  background-color: rebeccapurple;
+  color: var(--color);
+
+  & p {
+    color: var(--color);
+  }
+}
