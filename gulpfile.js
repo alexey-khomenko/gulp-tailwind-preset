@@ -7,6 +7,7 @@ const cssnesting = require('postcss-nesting'); // postcss-nested
 const autoprefixer = require('autoprefixer');
 const tailwindcss = require('tailwindcss');
 const fileinclude = require('gulp-file-include');
+const cssnano = require('cssnano');
 
 const OUTPUT = './dest';
 const CSS_ENTRY = './src/styles/styles.css';
@@ -27,7 +28,7 @@ function stylesDev() {
 }
 
 function stylesProd() {
-    const processors = [cssimport, tailwindcss(TAILWIND_CONFIG), cssnesting, autoprefixer];
+    const processors = [cssimport, tailwindcss(TAILWIND_CONFIG), cssnesting, autoprefixer, cssnano];
 
     return src(CSS_ENTRY)
         .pipe(postcss(processors))
