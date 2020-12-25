@@ -10,17 +10,18 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "cross-env": "^7.0.2"
+    "cross-env": "^7.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^9.8.6",
-    "browser-sync": "^2.26.12",
+    "browser-sync": "^2.26.13",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
-    "gulp-file-include": "^2.2.2",
     "gulp-postcss": "^8.0.0",
+    "gulp-pug": "^4.0.1",
     "postcss-import": "^12.0.1",
     "postcss-nesting": "^7.0.1",
-    "tailwindcss": "^1.7.6"
+    "pug": "^3.0.0",
+    "tailwindcss": "^1.9.6"
   }
 }

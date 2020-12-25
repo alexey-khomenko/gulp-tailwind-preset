@@ -6,14 +6,14 @@ const cssimport = require('postcss-import');
 const cssnesting = require('postcss-nesting'); // postcss-nested
 const autoprefixer = require('autoprefixer');
 const tailwindcss = require('tailwindcss');
-const fileinclude = require('gulp-file-include');
+const pug = require('gulp-pug');
 
 const OUTPUT = './dest';
 const CSS_ENTRY = './src/styles/styles.css';
 const CSS_FILES = './src/styles/**/*.*css';
-const HTML_ENTRY = './src/html/routes/*.html';
-const HTML_FILES = ['./src/html/**/*.html', './src/html/**/*.json'];
-const HTML_DIR = './src/html';
+const HTML_ENTRY = './src/pug/routes/*.pug';
+const HTML_FILES = './src/pug/**/*.pug';
+const HTML_DIR = './src/pug/routes';
 const TAILWIND_CONFIG = 'tailwind.config.js';
 
 function stylesDev() {
@@ -37,7 +37,10 @@ function stylesProd() {
 
 function html() {
     return src(HTML_ENTRY)
-        .pipe(fileinclude({basepath: HTML_DIR}))
+        .pipe(pug({
+            basedir: HTML_DIR,
+            pretty: true
+        }))
         .pipe(dest(OUTPUT))
         .pipe(browserSync.stream())
         ;
