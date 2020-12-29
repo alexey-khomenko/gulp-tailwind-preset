@@ -10,11 +10,16 @@ const cssnano = require('cssnano');
 const pug = require('gulp-pug');
 
 const OUTPUT = './dest';
+const JS_ENTRY = './src/scripts/*';
+const JS_FILES = './src/scripts/**/*.js';
 const CSS_ENTRY = './src/styles/styles.css';
 const CSS_FILES = './src/styles/**/*.*css';
 const HTML_ENTRY = './src/pug/routes/*.pug';
 const HTML_FILES = './src/pug/**/*.pug';
 const HTML_DIR = './src/pug/routes';
+const ICONS_ENTRY = './src/favicons/*';
+const ICONS_FILES = './src/favicons/**/*.*';
+const ICONS_OUTPUT = OUTPUT + '/favicons';
 const TAILWIND_CONFIG = 'tailwind.config.js';
 
 function stylesDev() {
@@ -47,6 +52,20 @@ function html() {
         ;
 }
 
+function icons() {
+    return src(ICONS_ENTRY)
+        .pipe(dest(ICONS_OUTPUT))
+        .pipe(browserSync.stream())
+        ;
+}
+
+function scripts() {
+    return src(JS_ENTRY)
+        .pipe(dest(OUTPUT))
+        .pipe(browserSync.stream())
+        ;
+}
+
 function clear() {
     return del(OUTPUT + '/*');
 }
@@ -58,10 +77,12 @@ function watcher() {
 
     watch(CSS_FILES, stylesDev);
     watch(HTML_FILES, html);
+    watch(ICONS_FILES, icons);
+    watch(JS_FILES, scripts);
 }
 
-const dev = series(clear, parallel(stylesDev, html));
-const build = series(clear, parallel(stylesProd, html));
+const dev = series(clear, parallel(stylesDev, html, scripts));
+const build = series(clear, parallel(stylesProd, html, scripts));
 
 exports.default = build;
 exports.dev = series(dev, watcher);

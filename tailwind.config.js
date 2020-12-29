@@ -1,6 +1,6 @@
 module.exports = {
     purge: {
-        content: ['**/*.html'],
+        content: ['src/pug/**/*.pug'],
         options: {
             whitelist: ['is-active', 'hidden'],
         },

@@ -7,6 +7,7 @@ html(lang='ru')
             block title
         link(rel='stylesheet' href='styles.css')
     body
-        - let variable = "* value *";
-        include layout/l-1
-        block main
+        div(class="container mx-auto px-1 w-full")
+            - variable = "* value *";
+            include layout/l-1
+            block main
