@@ -12,8 +12,10 @@ const pug = require('gulp-pug');
 const OUTPUT = './dest';
 const JS_ENTRY = './src/scripts/*';
 const JS_FILES = './src/scripts/**/*.js';
+const JS_OUTPUT = OUTPUT + '/js';
 const CSS_ENTRY = './src/styles/styles.css';
 const CSS_FILES = './src/styles/**/*.*css';
+const CSS_OUTPUT = OUTPUT + '/css';
 const HTML_ENTRY = './src/pug/routes/*.pug';
 const HTML_FILES = './src/pug/**/*.pug';
 const HTML_DIR = './src/pug/routes';
@@ -27,7 +29,7 @@ function stylesDev() {
 
     return src(CSS_ENTRY)
         .pipe(postcss(processors))
-        .pipe(dest(OUTPUT))
+        .pipe(dest(CSS_OUTPUT))
         .pipe(browserSync.stream())
         ;
 }
@@ -37,7 +39,7 @@ function stylesProd() {
 
     return src(CSS_ENTRY)
         .pipe(postcss(processors))
-        .pipe(dest(OUTPUT))
+        .pipe(dest(CSS_OUTPUT))
         ;
 }
 
@@ -61,7 +63,7 @@ function icons() {
 
 function scripts() {
     return src(JS_ENTRY)
-        .pipe(dest(OUTPUT))
+        .pipe(dest(JS_OUTPUT))
         .pipe(browserSync.stream())
         ;
 }
