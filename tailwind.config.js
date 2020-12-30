@@ -1,10 +1,11 @@
 module.exports = {
     purge: {
-        content: ['src/pug/**/*.pug'],
+        content: ['src/pug/**/*.pug', 'src/scripts/**/*.js'],
         options: {
             whitelist: ['is-active', 'hidden'],
         },
     },
+    darkMode: false, // or 'media' or 'class'
     theme: {
         screens: {
             'xl': {'max': '1535px'},
@@ -17,10 +18,7 @@ module.exports = {
     },
     variants: {
         container: false,
+        extend: {},
     },
-    plugins: [],
-    extend: {},
-    future: {
-        removeDeprecatedGapUtilities: true,
-    },
+    plugins: []
 }

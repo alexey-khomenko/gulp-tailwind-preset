@@ -3,10 +3,11 @@ const del = require('del');
 const browserSync = require('browser-sync').create();
 const postcss = require('gulp-postcss');
 const cssimport = require('postcss-import');
-const cssnesting = require('postcss-nesting'); // postcss-nested
 const autoprefixer = require('autoprefixer');
 const tailwindcss = require('tailwindcss');
 const cssnano = require('cssnano');
+const uglify = require("gulp-uglify");
+const concat = require("gulp-concat");
 const pug = require('gulp-pug');
 
 const OUTPUT = './dest';
@@ -25,7 +26,7 @@ const ICONS_OUTPUT = OUTPUT + '/favicons';
 const TAILWIND_CONFIG = 'tailwind.config.js';
 
 function stylesDev() {
-    const processors = [cssimport, tailwindcss(TAILWIND_CONFIG), cssnesting];
+    const processors = [cssimport, tailwindcss(TAILWIND_CONFIG)];
 
     return src(CSS_ENTRY)
         .pipe(postcss(processors))
@@ -35,11 +36,27 @@ function stylesDev() {
 }
 
 function stylesProd() {
-    const processors = [cssimport, tailwindcss(TAILWIND_CONFIG), cssnesting, autoprefixer, cssnano];
+    const processors = [cssimport, tailwindcss(TAILWIND_CONFIG), autoprefixer, cssnano];
 
     return src(CSS_ENTRY)
         .pipe(postcss(processors))
         .pipe(dest(CSS_OUTPUT))
+        ;
+}
+
+function scriptsDev() {
+    return src(JS_ENTRY)
+        .pipe(concat('scripts.js'))
+        .pipe(dest(JS_OUTPUT))
+        .pipe(browserSync.stream())
+        ;
+}
+
+function scriptsProd() {
+    return src(JS_ENTRY)
+        .pipe(concat('scripts.js'))
+        .pipe(uglify())
+        .pipe(dest(JS_OUTPUT))
         ;
 }
 
@@ -61,13 +78,6 @@ function icons() {
         ;
 }
 
-function scripts() {
-    return src(JS_ENTRY)
-        .pipe(dest(JS_OUTPUT))
-        .pipe(browserSync.stream())
-        ;
-}
-
 function clear() {
     return del(OUTPUT + '/*');
 }
@@ -80,11 +90,11 @@ function watcher() {
     watch(CSS_FILES, stylesDev);
     watch(HTML_FILES, html);
     watch(ICONS_FILES, icons);
-    watch(JS_FILES, scripts);
+    watch(JS_FILES, scriptsDev);
 }
 
-const dev = series(clear, parallel(stylesDev, html, scripts));
-const build = series(clear, parallel(stylesProd, html, scripts));
+const dev = series(clear, parallel(stylesDev, scriptsDev, html, icons));
+const build = series(clear, parallel(stylesProd, scriptsProd, html, icons));
 
 exports.default = build;
 exports.dev = series(dev, watcher);
