@@ -2,6 +2,10 @@
   "name": "gulp-tailwind-preset",
   "version": "1.0.0",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/alexey-khomenko/gulp-tailwind-preset.git"
+  },
   "main": "tailwind.config.js",
   "scripts": {
     "dev": "gulp dev",
