@@ -10,7 +10,7 @@ const uglify = require("gulp-uglify");
 const concat = require("gulp-concat");
 const pug = require('gulp-pug');
 
-const OUTPUT = './dest';
+const OUTPUT = './docs';
 const JS_ENTRY = './src/scripts/*';
 const JS_FILES = './src/scripts/**/*.js';
 const JS_OUTPUT = OUTPUT + '/js';
